@@ -16,7 +16,7 @@ export const DoughnutChart = () => {
                             borderRadius:5
                         }
                     ]
-                }}
+                }} 
             ></Doughnut>
         </>
     )

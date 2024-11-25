@@ -1,19 +1,29 @@
-import React from 'react'
-import { AddExpense } from './AddExpense'
-import { DoughnutChart } from './DoughnutChart';
+import { usePages } from '../hooks/usePages';
 
-export const HalfSizeCard = ({func}) => {
+export const HalfSizeCard = ({card}) => {
 
-    const type = {
-        AddExpense,
-        DoughnutChart
-    };
-    const TypeFunc = type[func];
+    const {pageDetails} = usePages(card);
+    
+    if(!pageDetails){
+        return (
+            <div className="col-md-6" style={{minHeight: "25rem"}}>
+                <div className="card p-4 shadow-sm h-100">
+                    <p>Page not found.</p>
+                </div>
+            </div>
+        );
+    }
+
+    const {title, page: PageComponent} = pageDetails;
     
     return (
-        <div className="col-md">
-            <div className="card p-4 shadow-sm">
-                <TypeFunc />
+        <div className="col-md-6" style={{minHeight: "25rem"}}>
+            <div className="card p-4 shadow-sm h-100">
+                <h4 className="mb-3">{title}</h4>
+                <div className='d-flex flex-column h-100 justify-content-center'>
+                    <PageComponent title={title}/>
+                </div>
+                
             </div>
         </div>
     )

@@ -1,14 +1,13 @@
 import React from 'react'
 
-export const AddExpense = () => {
+export const AddExpense = ({title}) => {
 
     const categories = ['Food', 'Utilities', 'Entertainment', 'Transportation', 'Other']
 
 
     return (
         <>
-            <h4 className="mb-3">Add Expense</h4>
-            <form>
+            <form className='d-flex flex-column justify-content-evenly h-100'>
                 <div className="mb-3">
                     <label htmlFor="description" className="form-label">Description</label>
                     <input

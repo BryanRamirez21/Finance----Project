@@ -1,17 +1,16 @@
-import React from 'react'
-import { DollarSign, PlusCircle, List, PieChart as PieChartIcon, BarChart as BarChartIcon } from 'lucide-react'
 import { ButtonAction } from '../components/ButtonAction'
 import { HalfSizeCard } from '../components/HalfSizeCard'
 
 export const Main = () => {
 
     return (
-        <div className="mx-auto" style={{maxWidth:"100rem"}}>
+        <div className="container mx-auto" style={{maxWidth:"100rem"}}>
             <h1>30 20 10</h1>
             {/* Quick Actions */}
             <div className="mt-8 w-100 mb-5">
                 <h2 className="h4 mb-3">Quick Actions</h2>
                 <div className="w-100 d-flex flex-row col-7 gap-3">
+                    <ButtonAction type={"Budget"} />    
                     <ButtonAction type={"PlusCircle"} />
                     <ButtonAction type={"DollarSign"} />
                     <ButtonAction type={"PieChart"} />
@@ -20,14 +19,14 @@ export const Main = () => {
             </div>
 
 
-            <div className="row gap-5">
+            <div className="row g-4">
 
                 {/* Add expense card */}
-                <HalfSizeCard func={"AddExpense"}/>
+                <HalfSizeCard card={"SetBudget"}/>
+                <HalfSizeCard card={"DoughnutChart"}/>
+                <HalfSizeCard card={"AddExpense"}/>
+                <HalfSizeCard card={"ExpenseCat"}/>
 
-                <HalfSizeCard func={"DoughnutChart"}/>
-
-                
 
                 <div className='col-md-12'>
                     <div className="card p-4 shadow-sm">
@@ -49,11 +48,8 @@ export const Main = () => {
                             </li>
                         </ul>
                     </div>
-                    
                 </div>
             </div>
-
-            
 
         </div>
     )

@@ -36,26 +36,7 @@ export const SetBudget = () => {
                         className="form-control"
                         onChange={(e) => calculateExpense(e.target.value)}
                     />
-                </div>
-                <hr />
-                <div className="mb-3 d-flex flex-row flex-wrap gap-4 justify-content-center">
-                    <div className="d-flex flex-column flex-wrap">
-                        <h4>100% budget: </h4>
-                        <p>{earns.total}</p>
-                    </div>
-                    <div className="d-flex flex-column flex-wrap">
-                        <h4>50% to needs: </h4>
-                        <p>{earns.fifty}</p>
-                    </div>
-                    <div className="d-flex flex-column flex-wrap">
-                        <h4>30% wishes / free: </h4>
-                        <p>{earns.thirty}</p>
-                    </div>
-                    <div className="d-flex flex-column flex-wrap">
-                        <h4>20% ahorro: </h4>
-                        <p>{earns.twenty}</p>
-                    </div>
-                </div>  
+                </div> 
                 <button type="submit" className="btn btn-primary w-100">Confirm</button>
             </form>
     </>

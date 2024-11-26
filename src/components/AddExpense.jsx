@@ -7,7 +7,8 @@ export const AddExpense = ({title}) => {
 
     return (
         <>
-            <form className='d-flex flex-column justify-content-evenly h-100'>
+            <h2 className='mb-4'>Add expense</h2>
+            <form className='d-flex flex-column justify-content-evenly h-100 px-4'>
                 <div className="mb-3">
                     <label htmlFor="description" className="form-label">Description</label>
                     <input

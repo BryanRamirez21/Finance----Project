@@ -60,7 +60,7 @@ export const CardBudget = ({card}) => {
         <div className='w-100 card shadow-sm justify-content-center p-4'>
             <h3 className='mb-4'>{budgetData.name} ({budgetData.basePorc})</h3>
             <Stack spacing={2} sx={{ flexGrow: 2 }}>
-                <BorderLinearProgress variant="determinate" value={50} />
+                <BorderLinearProgress variant="determinate" value={80} />
             </Stack>
             ${budgetData.spent} / ${budgetData.total}
         </div>

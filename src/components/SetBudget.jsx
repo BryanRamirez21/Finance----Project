@@ -1,13 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { MoneyContext } from '../context/MoneyConext';
 
 export const SetBudget = () => {
 
-    const [earns, setEarns] = useState({
-        total:0,
-        fifty:0,
-        thirty:0,
-        twenty:0
-    });
+    const {earns, setEarns} = useContext(MoneyContext);
 
     const calculateExpense = (num) => {
         let total, fifty, thirty, twenty = 0;

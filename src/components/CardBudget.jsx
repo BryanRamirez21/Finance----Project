@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import { Stack, styled } from '@mui/material';
+import { MoneyContext } from '../context/MoneyConext';
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     height: 15,
@@ -22,25 +23,27 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 export const CardBudget = ({card}) => {
 
+    const {earns} = useContext(MoneyContext);
+
     const budgetData = {
         needs: {
             name: "Needs",
-            total: 4200,
+            total: earns.fifty,
             basePorc: "50%",
-            spent: 1200,
+            spent: (earns.fifty)/4,
             left: 0,
         },
         wants: {
             name: "Wants",
-            total: 2560,
+            total: earns.thirty,
             basePorc: "30%",
-            spent: 1200,
+            spent: earns.thirty,
             left: 0,
         },
         savings: {
             name: "Savings",
-            total: 1680,
-            spent: 1200,
+            total: earns.twenty,
+            spent: earns.twenty,
             basePorc: "20%",
             left: 0,
         }
@@ -60,9 +63,10 @@ export const CardBudget = ({card}) => {
         <div className='w-100 card shadow-sm justify-content-center p-4'>
             <h3 className='mb-4'>{budgetData.name} ({budgetData.basePorc})</h3>
             <Stack spacing={2} sx={{ flexGrow: 2 }}>
-                <BorderLinearProgress variant="determinate" value={80} />
+                <BorderLinearProgress variant="determinate" value={(budgetData.spent/budgetData.total) * 100} />
             </Stack>
-            ${budgetData.spent} / ${budgetData.total}
+            ${budgetData.spent} / ${budgetData.total}<br />
+            {budgetData.total % budgetData.spent}
         </div>
     )
 }

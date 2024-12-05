@@ -4,8 +4,7 @@ import { CardBudget } from '../components/CardBudget'
 import { HalfSizeCard } from '../components/HalfSizeCard'
 import { AddExpense } from '../components/AddExpense';
 import { RecentExpensesCard } from '../components/RecentExpensesCard';
-import { MoneyProvider } from '../context/MoneyProvider';
-import { MoneyContext } from '../context/MoneyConext';
+import { MoneyOpsProvider } from '../context/MoneyOpsProvider';
 
 export const Main = () => {
 
@@ -14,7 +13,7 @@ export const Main = () => {
     
 
     return (
-        <MoneyProvider>
+        <MoneyOpsProvider>
             <div className="container mx-auto" style={{maxWidth:"100rem"}}>
                 <h1>30 20 10</h1>
 
@@ -78,6 +77,6 @@ export const Main = () => {
                 </div>
 
             </div>
-        </MoneyProvider>
+        </MoneyOpsProvider>
     )
 }

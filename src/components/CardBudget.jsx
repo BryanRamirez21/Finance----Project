@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import { Stack, styled } from '@mui/material';
-import { MoneyContext } from '../context/MoneyConext';
+import { MoneyOpsContext } from '../context/MoneyOpsConext';
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     height: 15,
@@ -23,29 +23,29 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 export const CardBudget = ({card}) => {
 
-    const {earns} = useContext(MoneyContext);
+    const {budget, expenseHist} = useContext(MoneyOpsContext);
 
     const budgetData = {
         needs: {
             name: "Needs",
-            total: earns.fifty,
             basePorc: "50%",
-            spent: (earns.fifty)/4,
-            left: 0,
+            total: budget.fifty.total,
+            spent: 0,
+            left:  budget.fifty.left,
         },
         wants: {
             name: "Wants",
-            total: earns.thirty,
             basePorc: "30%",
-            spent: earns.thirty,
-            left: 0,
+            total: budget.thirty.total,
+            spent: 0,
+            left:  budget.thirty.left,
         },
         savings: {
             name: "Savings",
-            total: earns.twenty,
-            spent: earns.twenty,
             basePorc: "20%",
-            left: 0,
+            total: budget.twenty.total,
+            spent: 0,
+            left: budget.twenty.left,
         }
     }[card]
     ||
@@ -62,11 +62,10 @@ export const CardBudget = ({card}) => {
     return (
         <div className='w-100 card shadow-sm justify-content-center p-4'>
             <h3 className='mb-4'>{budgetData.name} ({budgetData.basePorc})</h3>
-            <Stack spacing={2} sx={{ flexGrow: 2 }}>
-                <BorderLinearProgress variant="determinate" value={(budgetData.spent/budgetData.total) * 100} />
+            <Stack spacing={2} sx={{ flexGrow:2}}>
+                <BorderLinearProgress variant='determinate' classes={{colorPrimary:"red"}} value={(budgetData.left/budgetData.total) * 100} />
             </Stack>
-            ${budgetData.spent} / ${budgetData.total}<br />
-            {budgetData.total % budgetData.spent}
+            ${budgetData.left} / ${budgetData.total}<br />
         </div>
     )
 }

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { DollarSign, PlusCircle, List, PieChart, BarChart, Wallet } from 'lucide-react'
+import { FocusContext } from '../context/FocusContext';
 
 const btnProps = {
     PlusCircle: { icon: PlusCircle, text: "Add expense", color: 'rgb(246, 59, 91)' },
@@ -15,10 +16,19 @@ export const ButtonAction = ({type}) => {
     const Icon = btnType.icon;
 
     if(!btnType) return (<></>);
+    const {setisFocus, isFocus} = useContext(FocusContext);
+
+
+    const functi = () => {
+        if(type === "DollarSign")
+            setisFocus(!isFocus);
+    }
+
+    
 
     return (
         <>
-            <button className="border-0 btn btn-dark w-100 d-flex flex-column align-items-center py-3" style={{backgroundColor:`${btnType.color}`}}>
+            <button onClick={functi} className="border-0 btn btn-dark w-100 d-flex flex-column align-items-center py-3" style={{backgroundColor:`${btnType.color}`}}>
                 <Icon className="mb-2" style={{ width: '1.5rem', height: '1.5rem' }} />
                 <span>{btnType.text}</span>
             </button>

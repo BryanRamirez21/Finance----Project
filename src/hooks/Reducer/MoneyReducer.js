@@ -9,6 +9,10 @@ export const MoneyReducer = (initialState, action) => {
                 fifty:  {total: parseInt(num / 2), left: parseInt(num / 2)},
                 thirty: {total: parseInt(num / 3.3331), left: parseInt(num / 3.3331)},
                 twenty: {total: parseInt(num / 5), left: parseInt(num / 5)},
+
+                //fifty:  {total: parseInt(num / 1.635), left: parseInt(num / 1.635)},
+                //thirty: {total: parseInt(num / 4.162), left: parseInt(num / 4.162)},
+                //twenty: {total: parseInt(num / 6.667), left: parseInt(num / 6.667)},
             };
 
         case "AddExpense":

@@ -67,7 +67,9 @@ export const AddExpense = ({title}) => {
                         ))}
                     </select>
                 </div>
-                <button type="submit" className="btn btn-primary w-100">Add Expense</button>
+                <div className='w-25'>
+                    <button type="submit" className="btn btn-primary w-100">Add Expense</button>
+                </div>
             </form>
         </>
     )

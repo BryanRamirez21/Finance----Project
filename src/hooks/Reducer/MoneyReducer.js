@@ -2,27 +2,45 @@
 export const MoneyReducer = (initialState, action) => {
     switch (action.type) {
         case "SetBudget":
-            const num = action.payload;
+            const num = action.payload; 
 
-            return{
-                total: num,
-                fifty:  {total: parseInt(num / 2), left: parseInt(num / 2)},
-                thirty: {total: parseInt(num / 3.3331), left: parseInt(num / 3.3331)},
-                twenty: {total: parseInt(num / 5), left: parseInt(num / 5)},
-
-                //fifty:  {total: parseInt(num / 1.635), left: parseInt(num / 1.635)},
-                //thirty: {total: parseInt(num / 4.162), left: parseInt(num / 4.162)},
-                //twenty: {total: parseInt(num / 6.667), left: parseInt(num / 6.667)},
+            return {
+                ...initialState, 
+                budget: {
+                    ...initialState.budget, 
+                    total: num,
+                    needs: {
+                        ...initialState.budget.needs,
+                        total: num*(initialState.budget.needs.perct / 100),
+                        left: num*(initialState.budget.needs.perct / 100)
+                    },
+                    wants: {
+                        ...initialState.budget.wants,
+                        total: num*(initialState.budget.wants.perct / 100),
+                        left: num*(initialState.budget.wants.perct / 100)
+                    },
+                    savings: {
+                        ...initialState.budget.savings,
+                        total: num*(initialState.budget.savings.perct / 100),
+                        left: num*(initialState.budget.savings.perct / 100)
+                    }
+                }
             };
 
         case "AddExpense":
-            const {category, amount} = action.payload;
-            
-            if(category === "Needs"){
-                return ({...initialState, fifty: {...initialState.fifty, left: initialState.fifty.left - amount}});
-            }else if (category === "Wants")
-                return ({...initialState, thirty: {...initialState.thirty, left: initialState.thirty.left - amount}});
+            return initialState;
 
+        case "SetPercentages":
+            return {
+                ...initialState, 
+                budget: {
+                    ...initialState.budget, 
+                    [action.payload.name]: {
+                        ...initialState.budget[action.payload.name],
+                        perct: action.payload.num
+                    },
+                }
+            };
     
         default:
             return initialState;

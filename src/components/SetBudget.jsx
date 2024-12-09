@@ -3,7 +3,7 @@ import { MoneyOpsContext } from '../context/MoneyOpsConext';
 
 export const SetBudget = () => {
 
-    const {budget, calculatePercent, dispatchBudget} = useContext(MoneyOpsContext)
+    const {dispatchBudget} = useContext(MoneyOpsContext)
 
     const budgetInp = useRef(0)
 

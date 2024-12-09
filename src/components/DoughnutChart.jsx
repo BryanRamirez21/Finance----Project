@@ -6,7 +6,8 @@ ChartJS.register(ArcElement, Tooltip);
 
 export const DoughnutChart = ({title}) => {
 
-  const {budget, expenseHist} = useContext(MoneyOpsContext);
+  const {budget} = useContext(MoneyOpsContext);
+  const expenseHist = budget.expensesHist;
    
   useEffect(() => {
     setDonnutData()
@@ -25,7 +26,7 @@ export const DoughnutChart = ({title}) => {
         labels: ['Needs', 'Wants', 'Savings'],
         datasets: [
           {
-            data: [budget.fifty.left, budget.thirty.left, budget.twenty.left],
+            data: [10, 20, 30],
             backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
             hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
             
@@ -40,7 +41,7 @@ export const DoughnutChart = ({title}) => {
     return (
         <div className=''>
             <div className='d-flex flex-row flex-wrap justify-content-between align-content-center'>
-                <p className='m-0'>Total budget: ${budget.total}</p>
+                <p className='m-0'>Total budget: ${}</p>
             </div>
 
             <div className='d-flex w-100 justify-content-center'>
@@ -51,8 +52,8 @@ export const DoughnutChart = ({title}) => {
             
 
             <div className='d-flex flex-row flex-wrap justify-content-between align-content-center'>
-                <p className='m-0'>Total spent: ${totalSpent}</p>
-                <p className='m-0' style={{color:"green"}}>Remaining: ${budget.total - totalSpent}</p>
+                <p className='m-0'>Total spent: ${}</p>
+                <p className='m-0' style={{color:"green"}}>Remaining: ${}</p>
             </div>
         </div>
     )

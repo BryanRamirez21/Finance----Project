@@ -3,7 +3,7 @@ import { MoneyOpsContext } from '../context/MoneyOpsConext';
 
 export const AddExpense = ({title}) => {
 
-    const {dispatchExpense, dispatchBudget, dispatchExpense2} = useContext(MoneyOpsContext);
+    const {dispatchBudget} = useContext(MoneyOpsContext);
 
     const categories = ['Needs', 'Wants']
     const descInput = useRef("");
@@ -24,14 +24,7 @@ export const AddExpense = ({title}) => {
             payload: expense
         };
 
-        const action2 = {
-            type: "CalculateTotalLeft",
-            payload: expense
-        };
-
-        dispatchExpense(action);
         dispatchBudget(action);
-        dispatchExpense2(action2)
     }
 
     return (

@@ -3,7 +3,8 @@ import { MoneyOpsContext } from '../context/MoneyOpsConext'
 
 export const RecentExpensesCard = () => {
 
-    const {expenseHist} = useContext(MoneyOpsContext);
+    const {budget} = useContext(MoneyOpsContext);
+    const expenseHist = budget.expensesHist;
 
     const NoRecentExpense = () => {
         return (

@@ -24,41 +24,30 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 export const CardBudget = ({card}) => {
 
-    const {budget} = useContext(MoneyOpsContext);
+    const {budget, dispatchBudget, percetanges, setPercetanges, checkPerctg} = useContext(MoneyOpsContext);
     const {isFocus} = useContext(FocusContext);
 
-    const budgetData = {
-        needs: {
-            name: "Needs",
-            basePorc: "61%",
-            total: budget.fifty.total,
-            spent: 0,
-            left:  budget.fifty.left,
-        },
-        wants: {
-            name: "Wants",
-            basePorc: "24%",
-            total: budget.thirty.total,
-            spent: 0,
-            left:  budget.thirty.left,
-        },
-        savings: {
-            name: "Savings",
-            basePorc: "15%",
-            total: budget.twenty.total,
-            spent: 0,
-            left: budget.twenty.left,
-        }
-    }[card]
-    ||
-    null;
+    const {name, perct, total, spent, left} = budget.budget[card] || null;
 
-    if(!budgetData){
+    if(!budget){
         return (
             <div className='w-100 card shadow-sm justify-content-center p-4'>
                 <h3 className='mb-4'>Error loading data</h3>
             </div>
         ) 
+    }
+
+    const setPerct = (e) => {
+        const num = e.target.value;
+        const name = e.target.name;
+
+        const action = {
+            type: "SetPercentages",
+            payload: {num, name}
+        };
+        //dispatchBudget(action);
+
+        checkPerctg(name, num);
     }
     
     return (
@@ -66,14 +55,22 @@ export const CardBudget = ({card}) => {
             {
                 !isFocus 
                 ? 
-                (<h3 className='mb-4'>{budgetData.name} ({budgetData.basePorc})</h3>)
+                (<h3 className='mb-4'>{name} ({perct}%)</h3>)
                 :
-                (<input type='number' placeholder={budgetData.basePorc} className='mb-4 w-100 border-0 bg-dark-subtle bg-opacity-75 text-black px-3 py-2 rounded-1'/>)
+                (<input 
+                    type='number'
+                    name={card} 
+                    onChange={(e) => setPerct(e)} 
+                    max={100} 
+                    value={percetanges[card]}
+                    placeholder={perct+" %"} 
+                    className='mb-4 w-100 border-0 bg-dark-subtle bg-opacity-75 text-black px-3 py-2 rounded-1'
+                />)
             }
             <Stack spacing={2} sx={{ flexGrow:2}}>
-                <BorderLinearProgress variant='determinate' classes={{colorPrimary:"red"}} value={(budgetData.left/budgetData.total) * 100} />
+                <BorderLinearProgress variant='determinate' classes={{colorPrimary:"red"}} value={(left/total) * 100} />
             </Stack>
-            ${budgetData.left} / ${budgetData.total}<br />
+            ${left} / ${total}<br />
         </div>
     )
 }

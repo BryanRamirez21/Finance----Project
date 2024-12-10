@@ -31,14 +31,24 @@ export const MoneyReducer = (initialState, action) => {
             return initialState;
 
         case "SetPercentages":
+            const updatedPercentages = action.payload;
             return {
                 ...initialState, 
                 budget: {
                     ...initialState.budget, 
-                    [action.payload.name]: {
-                        ...initialState.budget[action.payload.name],
-                        perct: action.payload.num
-                    },
+                    ...Object.keys(updatedPercentages).reduce((acc, key) => {
+                        const newPerct = updatedPercentages[key];
+                        const totalForCategory = (initialState.budget.total * newPerct) / 100;
+
+                        acc[key] = {
+                            ...initialState.budget[key],
+                            perct: newPerct,
+                            total: totalForCategory,
+                            left: totalForCategory - initialState.budget[key].spent
+                        };
+        
+                        return acc;
+                    }, {})
                 }
             };
     

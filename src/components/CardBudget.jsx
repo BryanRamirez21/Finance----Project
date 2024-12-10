@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import { Stack, styled } from '@mui/material';
 import { MoneyOpsContext } from '../context/MoneyOpsConext';
@@ -15,7 +15,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     },
     [`& .${linearProgressClasses.bar}`]: {
         borderRadius: 5,
-        backgroundColor: '#1a90ff',
+        backgroundColor: '#34AD40',
         ...theme.applyStyles('dark', {
             backgroundColor: '#308fe8',
         }),
@@ -24,10 +24,10 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 export const CardBudget = ({card}) => {
 
-    const {budget, dispatchBudget, percetanges, setPercetanges, checkPerctg} = useContext(MoneyOpsContext);
+    const {budget, dispatchBudget, percents, handleInputChange} = useContext(MoneyOpsContext);
     const {isFocus} = useContext(FocusContext);
 
-    const {name, perct, total, spent, left} = budget.budget[card] || null;
+    const {name, perct, total, spent, left} = budget.budget[card] || {};
 
     if(!budget){
         return (
@@ -35,20 +35,8 @@ export const CardBudget = ({card}) => {
                 <h3 className='mb-4'>Error loading data</h3>
             </div>
         ) 
-    }
+    };
 
-    const setPerct = (e) => {
-        const num = e.target.value;
-        const name = e.target.name;
-
-        const action = {
-            type: "SetPercentages",
-            payload: {num, name}
-        };
-        //dispatchBudget(action);
-
-        checkPerctg(name, num);
-    }
     
     return (
         <div className='w-100 card shadow-sm justify-content-center p-4'>
@@ -60,9 +48,10 @@ export const CardBudget = ({card}) => {
                 (<input 
                     type='number'
                     name={card} 
-                    onChange={(e) => setPerct(e)} 
+                    value={percents[card]}
+                    onChange={handleInputChange}
                     max={100} 
-                    value={percetanges[card]}
+                    min={1}
                     placeholder={perct+" %"} 
                     className='mb-4 w-100 border-0 bg-dark-subtle bg-opacity-75 text-black px-3 py-2 rounded-1'
                 />)

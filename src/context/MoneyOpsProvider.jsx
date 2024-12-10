@@ -23,29 +23,43 @@ export const MoneyOpsProvider = ({children}) => {
         ],
     };
 
-    
-    const [percetanges, setPercetanges] = useState({needs:0, wants:0, savings:0});
+    const [percents, setPercents] = useState({needs:0, wants:0, savings:0})
+    const handleInputChange = ({target}) => {
+        const {name, value} = target;
+        const parsedValue = parseInt(value, 10);
 
-    const checkPerctg = (name, num) => {
-        if(num > 100){
-            alert("cant more tha 100 per cat");
+        if(parseInt(value) > 99){
+            alert("cant be more than 100 per cat");
             return;
         }
-        const {needs, wants, savings} = percetanges;
-        if(parseInt(needs) + parseInt(wants) + parseInt(savings) > 100){
-            alert("cant more than 100 total");
+        
+        const totalOtherCategories = Object.entries(percents)
+        .filter(([key]) => key !== name)
+        .reduce((sum, [, val]) => sum + parseInt(val, 10), 0);
+
+        if(totalOtherCategories + parsedValue > 100){
+            alert("cant be more than 100 total");
             return;
         }
-        setPercetanges({...percetanges, [name]: num});
+
+        setPercents(prev => {
+            const updatedPercents = { ...prev, [name]: parsedValue };    
+            dispatchBudget({
+                type: "SetPercentages",
+                payload: updatedPercents
+            });
+    
+            return updatedPercents;
+        });
+        
     }
     
-   
 
     const [budget, dispatchBudget] = useReducer(MoneyReducer, intialBudget);
 
 
     return (
-        <MoneyOpsContext.Provider value={{budget, dispatchBudget, percetanges, setPercetanges, checkPerctg}}>
+        <MoneyOpsContext.Provider value={{budget, dispatchBudget, handleInputChange, percents}}>
             {children}
         </MoneyOpsContext.Provider>
     )

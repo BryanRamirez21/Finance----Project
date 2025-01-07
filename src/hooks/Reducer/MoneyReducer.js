@@ -28,7 +28,26 @@ export const MoneyReducer = (initialState, action) => {
             };
 
         case "AddExpense":
-            return initialState;
+            const {desc, amount, category} = action.payload; 
+            return {
+                ...initialState,
+                budget: {
+                    ...initialState.budget,
+                    [(category).toLowerCase()]: {
+                        ...initialState.budget[(category).toLowerCase()],
+                        left: initialState.budget[(category).toLowerCase()].total - amount
+                    }
+                },
+                expensesHist: [...initialState.expensesHist,
+                    {
+                        id:      new Date().getTime() * 3,
+                        date:    new Date().getDate() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getFullYear(),
+                        descrip: desc,
+                        amount:  parseInt(amount),
+                        type:    category
+                    }
+                ]
+            };
 
         case "SetPercentages":
             const updatedPercentages = action.payload;

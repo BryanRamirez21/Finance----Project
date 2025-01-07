@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { DollarSign, PlusCircle, List, PieChart, BarChart, Wallet } from 'lucide-react'
 import { FocusContext } from '../context/FocusContext';
+import { MoneyOpsContext } from '../context/MoneyOpsConext';
 
 const btnProps = {
     PlusCircle: { icon: PlusCircle, text: "Add expense", color: 'rgb(246, 59, 91)' },
@@ -17,14 +18,20 @@ export const ButtonAction = ({type}) => {
 
     if(!btnType) return (<></>);
     const {setisFocus, isFocus} = useContext(FocusContext);
-
+    const {percents} = useContext(MoneyOpsContext);
 
     const functi = () => {
-        if(type === "DollarSign")
-            setisFocus(!isFocus);
+        if(type === "DollarSign"){
+           
+            const hasInvalidPercentages = Object.values(percents).some((value) => isNaN(value));
+            if(hasInvalidPercentages)
+                alert("cant be NaN")
+            else
+                setisFocus(!isFocus)
+
+        }
     }
 
-    
 
     return (
         <>

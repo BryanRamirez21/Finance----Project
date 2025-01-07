@@ -52,14 +52,14 @@ export const CardBudget = ({card}) => {
                     onChange={handleInputChange}
                     max={100} 
                     min={1}
-                    placeholder={perct+" %"} 
+                    placeholder={(isNaN(perct) ? (0) : perct)+" %"} 
                     className='mb-4 w-100 border-0 bg-dark-subtle bg-opacity-75 text-black px-3 py-2 rounded-1'
                 />)
             }
             <Stack spacing={2} sx={{ flexGrow:2}}>
                 <BorderLinearProgress variant='determinate' classes={{colorPrimary:"red"}} value={(left/total) * 100} />
             </Stack>
-            ${left} / ${total}<br />
+            ${isNaN(left) ? (0) : left} / ${isNaN(total) ? (0) : total}<br />
         </div>
     )
 }

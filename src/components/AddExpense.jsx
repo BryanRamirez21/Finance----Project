@@ -14,16 +14,15 @@ export const AddExpense = ({title}) => {
         e.preventDefault();
 
         const expense = {
-            desc: descInput.current.value,
+            desc: (descInput.current.value).trim(),
             amount: amountInput.current.value,
-            category: categoryInput.current.value
+            category: (categoryInput.current.value).trim()
         };
 
         const action = {
             type: "AddExpense",
             payload: expense
         };
-
         dispatchBudget(action);
     }
 

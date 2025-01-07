@@ -13,6 +13,7 @@ export const MoneyOpsProvider = ({children}) => {
             savings: {name:"Savings", perct:20, total:0, spent:0, left:0}
         },
         expensesHist: [
+            /*
             {
                 id: 0, 
                 date:    "", 
@@ -20,6 +21,7 @@ export const MoneyOpsProvider = ({children}) => {
                 amount: 0, 
                 type: ""
             }
+            */
         ],
     };
 
@@ -34,8 +36,8 @@ export const MoneyOpsProvider = ({children}) => {
         }
         
         const totalOtherCategories = Object.entries(percents)
-        .filter(([key]) => key !== name)
-        .reduce((sum, [, val]) => sum + parseInt(val, 10), 0);
+            .filter(([key]) => key !== name)
+            .reduce((sum, [, val]) => sum + parseInt(val, 10), 0);
 
         if(totalOtherCategories + parsedValue > 100){
             alert("cant be more than 100 total");
